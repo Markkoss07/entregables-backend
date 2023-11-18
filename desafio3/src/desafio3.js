@@ -60,7 +60,8 @@ class ProductManager {
   
 }
 
-export default ProductManager;
+export default ProductManager(); 
+// En esta linea si al exportar la clase de ProductManager como una funcion no me lo toma correctamente pero si le saco los parentesis, me empieza a crear productos sin parar
 
 const productManager = new ProductManager('./productos.json');
 
