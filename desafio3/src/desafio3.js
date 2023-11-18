@@ -1,4 +1,5 @@
-const fs = require('fs');
+// const fs = require('fs');
+import fs from "fs"
 
 class ProductManager {
   constructor(filePath) {
@@ -55,11 +56,13 @@ class ProductManager {
     }
     return null;
   }
+
+  
 }
 
+export default ProductManager;
 
-const productManager = new ProductManager('productos.json');
-
+const productManager = new ProductManager('./productos.json');
 
 productManager.addProduct({
   titulo: "La noche estrellada",
