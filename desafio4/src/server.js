@@ -5,8 +5,8 @@ import { productsRouter } from "./routes/products.router.js";
 import { cartsRouter } from "./routes/carts.router.js";
 import handlebars from "express-handlebars";
 import http from 'http';
-import __dirname from "./utils.js";
-import { Server } from "socket.io";
+import __dirname from './utils.js';
+import { Server } from 'socket.io';
 
 const app = express();
 const server = http.createServer(app);
@@ -34,5 +34,27 @@ app.use(express.json())
 app.use('/api/products', productsRouter)
 app.use ('/api/carts', cartsRouter)
 
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+app.use(express.static(`${__dirname}/public`));
+
+app.engine('hbs', handlebars.engine());
+app.set('views', __dirname + '/views');
+app.set('view engine', 'hbs');
+
+
+app.use('/', router);
+
+io.on('connection', socket => {
+    console.log('Nuevo cliente conectado');
+    socket.on('disconnect', () => {
+        console.log('Un cliente se ha desconectado');
+    });
+});
 
 app.listen(PORT, () => console.log(`Server Listening on port ${PORT}`))
+
+export function getIO() {
+    return io;
+}
